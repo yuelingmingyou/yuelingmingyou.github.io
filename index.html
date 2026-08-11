@@ -12,7 +12,6 @@
     }
 
     :root {
-      --primary: #6b8cae;
       --glass-bg: rgba(255, 255, 255, 0.15);
       --glass-border: rgba(255, 255, 255, 0.25);
       --text-light: #e8e4f0;
@@ -45,16 +44,12 @@
 
     /* ========== 标题页 ========== */
     #title-page {
-  background: url('./images/1784909546290.png') center/cover no-repeat;
-  background-color: #1a1a2e; /* 后备颜色，图片加载前显示 */
-}
-
-
+      background: url('images/1784909546290.png') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 100vh;
     }
-
 
     #title-page::before {
       content: '';
@@ -62,9 +57,9 @@
       inset: 0;
       background: linear-gradient(
         135deg,
-        rgba(26, 26, 46, 0.7) 0%,
-        rgba(26, 26, 46, 0.3) 50%,
-        rgba(26, 26, 46, 0.6) 100%
+        rgba(26, 26, 46, 0.6) 0%,
+        rgba(26, 26, 46, 0.2) 50%,
+        rgba(26, 26, 46, 0.5) 100%
       );
     }
 
@@ -122,7 +117,7 @@
 
     .subtitle {
       font-size: 15px;
-      color: var(--primary);
+      color: #a8c4e0;
       text-shadow: var(--text-shadow);
       letter-spacing: 4px;
     }
@@ -210,6 +205,7 @@
     .sub-page {
       background: #f5f3f7;
       padding: 40px 20px;
+      min-height: 100vh;
     }
 
     .page-header {
@@ -240,4 +236,473 @@
 
     .back-btn:hover {
       background: #2c3e50;
+      color: #fff;
+      border-color: #2c3e50;
+    }
+
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ========== 汉化页面 ========== */
+    .translation-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+    }
+
+    .translation-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .trans-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .trans-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .trans-info h3 {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 6px;
+    }
+
+    .trans-meta {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .trans-desc {
+      color: #666;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* ========== 小说页面 ========== */
+    .novel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .novel-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      display: flex;
+      gap: 24px;
+      transition: all 0.3s;
+    }
+
+    .novel-item:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .novel-cover {
+      width: 120px;
+      height: 160px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .novel-info h3 {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .novel-status {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e3f2fd;
+      color: #1976d2;
+      font-size: 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .novel-desc {
+      color: #666;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    /* ========== 游戏页面 ========== */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .game-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+
+    .game-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    .game-cover {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .game-info {
+      padding: 28px;
+    }
+
+    .game-platform {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .platform-tag {
+      padding: 4px 10px;
+      background: #f0f0f0;
+      color: #666;
+      font-size: 11px;
+      border-radius: 6px;
+    }
+
+    .game-title {
+      font-size: 22px;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .game-status {
+      font-size: 14px;
+      color: #999;
+    }
+
+    /* ========== 设定集页面 ========== */
+    .setting-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .setting-tab {
+      padding: 10px 24px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .setting-tab:hover, .setting-tab.active {
+      background: #2c3e50;
+      color: #fff;
+      border-color: #2c3e50;
+    }
+
+    .setting-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    /* ========== 其他页面 ========== */
+    .other-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .other-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .other-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+
+    .other-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .other-title {
+      font-size: 18px;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .other-desc {
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* ========== 响应式 ========== */
+    @media (max-width: 768px) {
+      .title-content {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .logo {
+        font-size: 36px;
+      }
+
+      .title-menu {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .novel-item {
+        flex-direction: column;
+      }
+
+      .novel-cover {
+        width: 100%;
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== 标题页 ========== -->
+  <div id="title-page" class="page active">
+    <div class="title-content">
+      <div class="title-left">
+        <div class="logo">Thorned Alice</div>
+        <div class="logo-sub">
+          <div class="logo-icon">🌙</div>
+          <div>
+            <div class="tagline">一个探索自我的创作者</div>
+            <div class="subtitle">A CREATOR EXPLORING SELF</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="title-menu">
+        <button class="menu-btn" onclick="goToPage('translation')">汉化</button>
+        <button class="menu-btn" onclick="goToPage('novels')">小说</button>
+        <button class="menu-btn" onclick="goToPage('games')">游戏</button>
+        <button class="menu-btn" onclick="goToPage('settings')">设定集</button>
+        <button class="menu-btn" onclick="goToPage('others')">其他</button>
+      </div>
+    </div>
     
+    <div class="title-footer">
+      <a href="mailto:your@email.com" class="contact-link">联系我</a>
+    </div>
+  </div>
+
+  <!-- ========== 汉化页面 ========== -->
+  <div id="translation" class="page sub-page">
+    <div class="page-header">
+      <h2 class="page-title">汉化作品</h2>
+      <button class="back-btn" onclick="goToPage('title')">← 返回标题</button>
+    </div>
+    <div class="page-content">
+      <div class="translation-card">
+        <div class="trans-header">
+          <img src="https://via.placeholder.com/80x80/4a90d9/fff?text=游戏" class="trans-thumb" alt="封面">
+          <div class="trans-info">
+            <h3>《游戏A》汉化补丁</h3>
+            <div class="trans-meta">NS / PS4 | 2024.6发布</div>
+          </div>
+        </div>
+        <p class="trans-desc">全文本汉化，包含主线剧情及DLC内容。支持正版验证。</p>
+      </div>
+      
+      <div class="translation-card">
+        <div class="trans-header">
+          <img src="https://via.placeholder.com/80x80/e74c3c/fff?text=小说" class="trans-thumb" alt="封面">
+          <div class="trans-info">
+            <h3>《小说B》中译本</h3>
+            <div class="trans-meta">轻小说 | 连载中</div>
+          </div>
+        </div>
+        <p class="trans-desc">已翻译至第三卷，每周更新。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 小说页面 ========== -->
+  <div id="novels" class="page sub-page">
+    <div class="page-header">
+      <h2 class="page-title">原创小说</h2>
+      <button class="back-btn" onclick="goToPage('title')">← 返回标题</button>
+    </div>
+    <div class="page-content">
+      <div class="novel-list">
+        <div class="novel-item">
+          <img src="https://via.placeholder.com/120x160/8e44ad/fff?text=封面" class="novel-cover" alt="封面">
+          <div class="novel-info">
+            <h3>雨夜咖啡馆</h3>
+            <span class="novel-status">已完结</span>
+            <p class="novel-desc">都市奇幻短篇集，讲述雨夜中相遇的人们与他们的秘密。全12篇，约15万字。</p>
+          </div>
+        </div>
+        
+        <div class="novel-item">
+          <img src="https://via.placeholder.com/120x160/2c3e50/fff?text=封面" class="novel-cover" alt="封面">
+          <div class="novel-info">
+            <h3>Thorned Alice 前传</h3>
+            <span class="novel-status">连载中</span>
+            <p class="novel-desc">魔女爱丽丝的起源故事，揭秘百年前的魔法战争。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 游戏页面 ========== -->
+  <div id="games" class="page sub-page">
+    <div class="page-header">
+      <h2 class="page-title">原创游戏</h2>
+      <button class="back-btn" onclick="goToPage('title')">← 返回标题</button>
+    </div>
+    <div class="page-content">
+      <div class="game-grid">
+        <div class="game-card">
+          <img src="https://via.placeholder.com/400x240/2c3e50/fff?text=Thorned+Alice" class="game-cover" alt="封面">
+          <div class="game-info">
+            <div class="game-platform">
+              <span class="platform-tag">NS</span>
+              <span class="platform-tag">PS4</span>
+              <span class="platform-tag">Steam</span>
+            </div>
+            <h3 class="game-title">Thorned Alice</h3>
+            <p class="game-status">开发中 | 预计2026.12发售</p>
+          </div>
+        </div>
+        
+        <div class="game-card">
+          <img src="https://via.placeholder.com/400x240/27ae60/fff?text=迷你游戏" class="game-cover" alt="封面">
+          <div class="game-info">
+            <div class="game-platform">
+              <span class="platform-tag">网页</span>
+              <span class="platform-tag">移动端</span>
+            </div>
+            <h3 class="game-title">魔女工坊</h3>
+            <p class="game-status">已上线 | 免费游玩</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 设定集页面 ========== -->
+  <div id="settings" class="page sub-page">
+    <div class="page-header">
+      <h2 class="page-title">设定集</h2>
+      <button class="back-btn" onclick="goToPage('title')">← 返回标题</button>
+    </div>
+    <div class="page-content">
+      <div class="setting-tabs">
+        <button class="setting-tab active">世界观</button>
+        <button class="setting-tab">角色</button>
+        <button class="setting-tab">年表</button>
+        <button class="setting-tab">地图</button>
+      </div>
+      <div class="setting-content">
+        <h3>世界观概述</h3>
+        <p style="color: #666; line-height: 1.8; margin-top: 16px;">
+          现代都市中隐藏着古老的魔女血脉。当满月升起，普通人看不见的"里世界"便会显现。
+          主角爱丽丝在17岁生日那天觉醒了魔力，被迫卷入魔女世界的纷争...
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 其他页面 ========== -->
+  <div id="others" class="page sub-page">
+    <div class="page-header">
+      <h2 class="page-title">其他</h2>
+      <button class="back-btn" onclick="goToPage('title')">← 返回标题</button>
+    </div>
+    <div class="page-content">
+      <div class="other-links">
+        <a href="#" class="other-card">
+          <div class="other-icon">🎨</div>
+          <div class="other-title">插画集</div>
+          <div class="other-desc">原创插画与同人作品</div>
+        </a>
+        
+        <a href="#" class="other-card">
+          <div class="other-icon">🎵</div>
+          <div class="other-title">音乐</div>
+          <div class="other-desc">原创BGM与歌单</div>
+        </a>
+        
+        <a href="#" class="other-card">
+          <div class="other-icon">📺</div>
+          <div class="other-title">视频</div>
+          <div class="other-desc">PV与实况录像</div>
+        </a>
+        
+        <a href="#" class="other-card">
+          <div class="other-icon">🔗</div>
+          <div class="other-title">友链</div>
+          <div class="other-desc">推荐的其他创作者</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goToPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+      });
+      
+      setTimeout(() => {
+        const target = document.getElementById(pageId === 'title' ? 'title-page' : pageId);
+        if (target) {
+          target.classList.add('active');
+          target.scrollTop = 0;
+        }
+      }, 50);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        goToPage('title');
+      }
+    });
+  </script>
+
+</body>
+</html>
