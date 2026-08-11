@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thorned Alice - 个人创作空间</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6b8cae;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --text-light: #e8e4f0;
+      --text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      overflow: hidden;
+      background: #1a1a2e;
+    }
+
+    /* ========== 页面容器 ========== */
+    .page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      overflow-y: auto;
+    }
+
+    .page.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ========== 标题页 ========== */
+    #title-page {
+      background: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1920') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #title-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(26, 26, 46, 0.7) 0%,
+        rgba(26, 26, 46, 0.3) 50%,
+        rgba(26, 26, 46, 0.6) 100%
+      );
+    }
+
+    .title-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1000px;
+      gap: 60px;
+    }
+
+    /* 左侧信息 */
+    .title-left {
+      flex: 1;
+    }
+
+    .logo {
+      font-size: 56px;
+      font-weight: 300;
+      color: var(--text-light);
+      text-shadow: var(--text-shadow);
+      letter-spacing: 8px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .logo-sub {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #a8c4e0, #d4b8e0);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .tagline {
+      font-size: 18px;
+      color: var(--text-light);
+      text-shadow: var(--text-shadow);
+      opacity: 0.9;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--primary);
+      text-shadow: var(--text-shadow);
+      letter-spacing: 4px;
+    }
+
+    /* 右侧菜单 */
+    .title-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 220px;
+    }
+
+    .menu-btn {
+      position: relative;
+      padding: 14px 28px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      color: var(--text-light);
+      font-size: 16px;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      overflow: hidden;
+    }
+
+    .menu-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.2),
+        transparent
+      );
+      transition: left 0.5s;
+    }
+
+    .menu-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateX(-4px);
+      box-shadow: 0 8px 32px rgba(107, 140, 174, 0.3);
+    }
+
+    .menu-btn:hover::before {
+      left: 100%;
+    }
+
+    .menu-btn:active {
+      transform: translateX(-4px) scale(0.98);
+    }
+
+    /* 底部联系 */
+    .title-footer {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .contact-link {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+      letter-spacing: 2px;
+    }
+
+    .contact-link:hover {
+      opacity: 1;
+    }
+
+    /* ========== 子页面通用 ========== */
+    .sub-page {
+      background: #f5f3f7;
+      padding: 40px 20px;
+    }
+
+    .page-header {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page-title {
+      font-size: 32px;
+      color: #2c3e50;
+      font-weight: 300;
+      letter-spacing: 4px;
+    }
+
+    .back-btn {
+      padding: 10px 24px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #2c3e50;
+    
