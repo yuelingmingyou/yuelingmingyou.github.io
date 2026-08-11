@@ -44,24 +44,40 @@
 
     /* ========== 标题页 ========== */
     #title-page {
+      background: url('https://yuelingmingyou.github.io/images/MEITU_20260811_214002867.jpg') left center / cover no-repeat;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
       min-height: 100vh;
-      /* 背景图设置：确保完整显示不被截掉 */
-      background: url('images/MEITU_20260811_214002867.jpg') no-repeat center center;
-      background-size: contain; /* 改为 contain 确保logo完整显示 */
-      background-color: #1a1a2e; /* 背景色填充空白区域 */
+      /* 确保背景图覆盖整个视口且左边缘对齐 */
+      background-size: cover;
+      background-position: left center;
     }
 
-    /* 移除渐变遮罩，避免遮挡背景图内容 */
-    /* 如需暗化效果可保留轻微遮罩，但确保不影响logo可见性 */
+    /* 移动端调整背景位置，确保logo区域可见 */
+    @media (max-width: 768px) {
+      #title-page {
+        background-position: 15% center;
+      }
+    }
+
+    /* 更小屏幕进一步调整 */
+    @media (max-width: 480px) {
+      #title-page {
+        background-position: 20% center;
+      }
+    }
+
     #title-page::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(26, 26, 46, 0.15); /* 极轻微的暗化，不遮挡主要内容 */
-      pointer-events: none;
+      background: linear-gradient(
+        135deg,
+        rgba(26, 26, 46, 0.3) 0%,
+        rgba(26, 26, 46, 0.1) 40%,
+        rgba(26, 26, 46, 0.4) 100%
+      );
     }
 
     .title-content {
@@ -69,29 +85,21 @@
       z-index: 1;
       display: flex;
       align-items: center;
-      justify-content: flex-end; /* 按钮靠右下 */
+      justify-content: flex-end;
       width: 100%;
       height: 100vh;
-      padding: 40px;
-      /* 移除之前的 gap 和 max-width 限制 */
+      padding: 0 8% 0 0;
+      /* 左侧留白保护logo区域，右侧放置按钮 */
+      padding-left: 45%;
     }
 
-    /* 移除左侧所有文字内容区域 */
-    .title-left {
-      display: none;
-    }
-
-    /* 右侧菜单 - 重新定位到右下方 */
+    /* 右侧菜单 */
     .title-menu {
       display: flex;
       flex-direction: column;
       gap: 16px;
       min-width: 220px;
       max-width: 280px;
-      /* 视觉定位：靠右下，避免遮挡背景图主要内容 */
-      margin-top: auto;
-      margin-left: auto;
-      margin-bottom: 60px; /* 底部留空 */
     }
 
     .menu-btn {
@@ -141,11 +149,6 @@
 
     .menu-btn:active {
       transform: translateX(-4px) scale(0.98);
-    }
-
-    /* 移除底部联系区域 */
-    .title-footer {
-      display: none;
     }
 
     /* ========== 子页面通用 ========== */
@@ -419,23 +422,16 @@
 
     /* ========== 响应式 ========== */
     @media (max-width: 768px) {
-      #title-page {
-        /* 移动端调整背景图显示 */
-        background-size: contain;
-        background-position: center top;
-        padding-top: 20px;
-      }
-
       .title-content {
-        justify-content: center; /* 移动端按钮居中 */
-        align-items: flex-end;
-        padding: 20px;
+        justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
       }
 
       .title-menu {
         width: 100%;
         max-width: 280px;
-        margin: 0 0 40px 0; /* 移动端底部对齐 */
+        margin: 0 auto;
       }
 
       .novel-item {
@@ -447,47 +443,6 @@
         height: 200px;
       }
     }
-
-    /* 超小屏幕额外保护 */
-    @media (max-width: 480px) {
-      #title-page {
-        background-size: contain;
-        background-position: center 10%;
-      }
-
-      .title-menu {
-        gap: 12px;
-      }
-
-      .menu-btn {
-        padding: 12px 20px;
-        font-size: 14px;
-      }
-    }
-
-    /* 横屏短屏保护（如手机横屏） */
-    @media (max-height: 500px) and (orientation: landscape) {
-      #title-page {
-        background-size: contain;
-        background-position: left center;
-      }
-
-      .title-content {
-        justify-content: flex-end;
-      }
-
-      .title-menu {
-        flex-direction: row;
-        flex-wrap: wrap;
-        max-width: none;
-        margin-bottom: 20px;
-      }
-
-      .menu-btn {
-        flex: 1;
-        min-width: 120px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -495,8 +450,6 @@
   <!-- ========== 标题页 ========== -->
   <div id="title-page" class="page active">
     <div class="title-content">
-      <!-- 左侧文字区域已移除 -->
-      
       <div class="title-menu">
         <button class="menu-btn" onclick="goToPage('translation')">汉化</button>
         <button class="menu-btn" onclick="goToPage('novels')">小说</button>
@@ -505,7 +458,6 @@
         <button class="menu-btn" onclick="goToPage('others')">其他</button>
       </div>
     </div>
-    <!-- 底部联系区域已移除 -->
   </div>
 
   <!-- ========== 汉化页面 ========== -->
