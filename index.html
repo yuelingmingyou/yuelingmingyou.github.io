@@ -43,25 +43,25 @@
     }
 
     /* ========== 标题页 ========== */
-     #title-page {
-  background: url('https://yuelingmingyou.github.io/images/1784909546290.png') center/cover no-repeat;
-}
+    #title-page {
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      /* 背景图设置：确保完整显示不被截掉 */
+      background: url('images/MEITU_20260811_214002867.jpg') no-repeat center center;
+      background-size: contain; /* 改为 contain 确保logo完整显示 */
+      background-color: #1a1a2e; /* 背景色填充空白区域 */
     }
 
+    /* 移除渐变遮罩，避免遮挡背景图内容 */
+    /* 如需暗化效果可保留轻微遮罩，但确保不影响logo可见性 */
     #title-page::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(26, 26, 46, 0.6) 0%,
-        rgba(26, 26, 46, 0.2) 50%,
-        rgba(26, 26, 46, 0.5) 100%
-      );
+      background: rgba(26, 26, 46, 0.15); /* 极轻微的暗化，不遮挡主要内容 */
+      pointer-events: none;
     }
 
     .title-content {
@@ -69,66 +69,29 @@
       z-index: 1;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      width: 90%;
-      max-width: 1000px;
-      gap: 60px;
+      justify-content: flex-end; /* 按钮靠右下 */
+      width: 100%;
+      height: 100vh;
+      padding: 40px;
+      /* 移除之前的 gap 和 max-width 限制 */
     }
 
-    /* 左侧信息 */
+    /* 移除左侧所有文字内容区域 */
     .title-left {
-      flex: 1;
+      display: none;
     }
 
-    .logo {
-      font-size: 56px;
-      font-weight: 300;
-      color: var(--text-light);
-      text-shadow: var(--text-shadow);
-      letter-spacing: 8px;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-
-    .logo-sub {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .logo-icon {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #a8c4e0, #d4b8e0);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-
-    .tagline {
-      font-size: 18px;
-      color: var(--text-light);
-      text-shadow: var(--text-shadow);
-      opacity: 0.9;
-      letter-spacing: 2px;
-    }
-
-    .subtitle {
-      font-size: 15px;
-      color: #a8c4e0;
-      text-shadow: var(--text-shadow);
-      letter-spacing: 4px;
-    }
-
-    /* 右侧菜单 */
+    /* 右侧菜单 - 重新定位到右下方 */
     .title-menu {
       display: flex;
       flex-direction: column;
       gap: 16px;
       min-width: 220px;
+      max-width: 280px;
+      /* 视觉定位：靠右下，避免遮挡背景图主要内容 */
+      margin-top: auto;
+      margin-left: auto;
+      margin-bottom: 60px; /* 底部留空 */
     }
 
     .menu-btn {
@@ -180,26 +143,9 @@
       transform: translateX(-4px) scale(0.98);
     }
 
-    /* 底部联系 */
+    /* 移除底部联系区域 */
     .title-footer {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .contact-link {
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 14px;
-      opacity: 0.7;
-      transition: opacity 0.3s;
-      letter-spacing: 2px;
-    }
-
-    .contact-link:hover {
-      opacity: 1;
+      display: none;
     }
 
     /* ========== 子页面通用 ========== */
@@ -473,19 +419,23 @@
 
     /* ========== 响应式 ========== */
     @media (max-width: 768px) {
-      .title-content {
-        flex-direction: column;
-        gap: 40px;
-        text-align: center;
+      #title-page {
+        /* 移动端调整背景图显示 */
+        background-size: contain;
+        background-position: center top;
+        padding-top: 20px;
       }
 
-      .logo {
-        font-size: 36px;
+      .title-content {
+        justify-content: center; /* 移动端按钮居中 */
+        align-items: flex-end;
+        padding: 20px;
       }
 
       .title-menu {
         width: 100%;
         max-width: 280px;
+        margin: 0 0 40px 0; /* 移动端底部对齐 */
       }
 
       .novel-item {
@@ -497,6 +447,47 @@
         height: 200px;
       }
     }
+
+    /* 超小屏幕额外保护 */
+    @media (max-width: 480px) {
+      #title-page {
+        background-size: contain;
+        background-position: center 10%;
+      }
+
+      .title-menu {
+        gap: 12px;
+      }
+
+      .menu-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+    }
+
+    /* 横屏短屏保护（如手机横屏） */
+    @media (max-height: 500px) and (orientation: landscape) {
+      #title-page {
+        background-size: contain;
+        background-position: left center;
+      }
+
+      .title-content {
+        justify-content: flex-end;
+      }
+
+      .title-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: none;
+        margin-bottom: 20px;
+      }
+
+      .menu-btn {
+        flex: 1;
+        min-width: 120px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -504,16 +495,7 @@
   <!-- ========== 标题页 ========== -->
   <div id="title-page" class="page active">
     <div class="title-content">
-      <div class="title-left">
-        <div class="logo">Thorned Alice</div>
-        <div class="logo-sub">
-          <div class="logo-icon">🌙</div>
-          <div>
-            <div class="tagline">一个探索自我的创作者</div>
-            <div class="subtitle">A CREATOR EXPLORING SELF</div>
-          </div>
-        </div>
-      </div>
+      <!-- 左侧文字区域已移除 -->
       
       <div class="title-menu">
         <button class="menu-btn" onclick="goToPage('translation')">汉化</button>
@@ -523,10 +505,7 @@
         <button class="menu-btn" onclick="goToPage('others')">其他</button>
       </div>
     </div>
-    
-    <div class="title-footer">
-      <a href="mailto:your@email.com" class="contact-link">联系我</a>
-    </div>
+    <!-- 底部联系区域已移除 -->
   </div>
 
   <!-- ========== 汉化页面 ========== -->
@@ -707,3 +686,4 @@
 
 </body>
 </html>
+
