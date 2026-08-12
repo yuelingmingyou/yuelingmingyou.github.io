@@ -49,19 +49,16 @@
       align-items: center;
       justify-content: flex-end;
       min-height: 100vh;
-      /* 确保背景图覆盖整个视口且左边缘对齐 */
       background-size: cover;
       background-position: left center;
     }
 
-    /* 移动端调整背景位置，确保logo区域可见 */
     @media (max-width: 768px) {
       #title-page {
         background-position: 15% center;
       }
     }
 
-    /* 更小屏幕进一步调整 */
     @media (max-width: 480px) {
       #title-page {
         background-position: 20% center;
@@ -89,11 +86,9 @@
       width: 100%;
       height: 100vh;
       padding: 0 8% 0 0;
-      /* 左侧留白保护logo区域，右侧放置按钮 */
       padding-left: 45%;
     }
 
-    /* 右侧菜单 */
     .title-menu {
       display: flex;
       flex-direction: column;
@@ -195,6 +190,345 @@
       margin: 0 auto;
     }
 
+    /* ========== 游戏轮播页面 ========== */
+    .games-carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 20px 0;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: grab;
+    }
+
+    .carousel-track.dragging {
+      transition: none;
+      cursor: grabbing;
+    }
+
+    .carousel-slide {
+      flex: 0 0 85%;
+      max-width: 500px;
+      padding: 0 10px;
+      opacity: 0.5;
+      transform: scale(0.9);
+      transition: all 0.4s ease;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .game-card-carousel {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+
+    .carousel-slide.active .game-card-carousel {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+
+    .game-cover-link {
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-cover-carousel {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .game-card-carousel:hover .game-cover-carousel {
+      transform: scale(1.05);
+    }
+
+    .game-cover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .game-cover-link:hover .game-cover-overlay {
+      background: rgba(0,0,0,0.3);
+    }
+
+    .play-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s;
+      font-size: 24px;
+    }
+
+    .game-cover-link:hover .play-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .game-info-carousel {
+      padding: 24px;
+    }
+
+    .game-platform {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .platform-tag {
+      padding: 4px 10px;
+      background: #f0f0f0;
+      color: #666;
+      font-size: 11px;
+      border-radius: 6px;
+    }
+
+    .game-title {
+      font-size: 22px;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .game-status {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 12px;
+    }
+
+    .game-desc-short {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* 轮播指示器 */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: #e74c3c;
+      transform: scale(1.3);
+    }
+
+    .carousel-dot:hover {
+      background: #bbb;
+    }
+
+    /* 导航箭头 */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #666;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .carousel-arrow:hover {
+      background: #fff;
+      color: #2c3e50;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-arrow.prev {
+      left: 10px;
+    }
+
+    .carousel-arrow.next {
+      right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-arrow {
+        display: none;
+      }
+      
+      .carousel-slide {
+        flex: 0 0 90%;
+      }
+      
+      .game-cover-carousel {
+        height: 220px;
+      }
+    }
+
+    /* ========== 游戏详情弹窗 ========== */
+    .game-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      padding: 20px;
+    }
+
+    .game-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .game-modal-content {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+
+    .game-modal.active .game-modal-content {
+      transform: scale(1);
+    }
+
+    .game-modal-header {
+      position: relative;
+    }
+
+    .game-modal-cover {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .game-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .game-modal-close:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .game-modal-body {
+      padding: 28px;
+    }
+
+    .game-modal-title {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-bottom: 12px;
+    }
+
+    .game-modal-meta {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .game-modal-desc {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .game-modal-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .game-modal-btn {
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .game-modal-btn.primary {
+      background: #2c3e50;
+      color: #fff;
+      border: none;
+    }
+
+    .game-modal-btn.primary:hover {
+      background: #34495e;
+    }
+
+    .game-modal-btn.secondary {
+      background: #fff;
+      color: #666;
+      border: 1px solid #ddd;
+    }
+
+    .game-modal-btn.secondary:hover {
+      background: #f5f5f5;
+    }
+
     /* ========== 汉化页面 ========== */
     .translation-card {
       background: #fff;
@@ -291,61 +625,6 @@
       color: #666;
       line-height: 1.8;
       font-size: 14px;
-    }
-
-    /* ========== 游戏页面 ========== */
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    .game-card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      transition: all 0.3s;
-    }
-
-    .game-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-    }
-
-    .game-cover {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-    }
-
-    .game-info {
-      padding: 28px;
-    }
-
-    .game-platform {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .platform-tag {
-      padding: 4px 10px;
-      background: #f0f0f0;
-      color: #666;
-      font-size: 11px;
-      border-radius: 6px;
-    }
-
-    .game-title {
-      font-size: 22px;
-      color: #2c3e50;
-      margin-bottom: 8px;
-    }
-
-    .game-status {
-      font-size: 14px;
-      color: #999;
     }
 
     /* ========== 设定集页面 ========== */
@@ -520,37 +799,150 @@
     </div>
   </div>
 
-  <!-- ========== 游戏页面 ========== -->
+  <!-- ========== 游戏页面（轮播版） ========== -->
   <div id="games" class="page sub-page">
     <div class="page-header">
       <h2 class="page-title">原创游戏</h2>
       <button class="back-btn" onclick="goToPage('title')">← 返回标题</button>
     </div>
     <div class="page-content">
-      <div class="game-grid">
-        <div class="game-card">
-          <img src="https://via.placeholder.com/400x240/2c3e50/fff?text=Thorned+Alice" class="game-cover" alt="封面">
-          <div class="game-info">
-            <div class="game-platform">
-              <span class="platform-tag">NS</span>
-              <span class="platform-tag">PS4</span>
-              <span class="platform-tag">Steam</span>
+      <div class="games-carousel-container" id="gamesCarousel">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- 游戏1 -->
+          <div class="carousel-slide" data-index="0">
+            <div class="game-card-carousel">
+              <a href="#" class="game-cover-link" onclick="openGameModal(0); return false;">
+                <img src="https://via.placeholder.com/400x280/2c3e50/fff?text=Thorned+Alice" class="game-cover-carousel" alt="Thorned Alice">
+                <div class="game-cover-overlay">
+                  <span class="play-icon">▶</span>
+                </div>
+              </a>
+              <div class="game-info-carousel">
+                <div class="game-platform">
+                  <span class="platform-tag">NS</span>
+                  <span class="platform-tag">PS4</span>
+                  <span class="platform-tag">Steam</span>
+                </div>
+                <h3 class="game-title">Thorned Alice</h3>
+                <p class="game-status">开发中 | 预计2026.12发售</p>
+                <p class="game-desc-short">魔女爱丽丝的冒险物语，探索里世界的秘密...</p>
+              </div>
             </div>
-            <h3 class="game-title">Thorned Alice</h3>
-            <p class="game-status">开发中 | 预计2026.12发售</p>
+          </div>
+          
+          <!-- 游戏2 -->
+          <div class="carousel-slide" data-index="1">
+            <div class="game-card-carousel">
+              <a href="#" class="game-cover-link" onclick="openGameModal(1); return false;">
+                <img src="https://via.placeholder.com/400x280/27ae60/fff?text=魔女工坊" class="game-cover-carousel" alt="魔女工坊">
+                <div class="game-cover-overlay">
+                  <span class="play-icon">▶</span>
+                </div>
+              </a>
+              <div class="game-info-carousel">
+                <div class="game-platform">
+                  <span class="platform-tag">网页</span>
+                  <span class="platform-tag">移动端</span>
+                </div>
+                <h3 class="game-title">魔女工坊</h3>
+                <p class="game-status">已上线 | 免费游玩</p>
+                <p class="game-desc-short">轻松治愈的魔女经营模拟游戏，调配魔法药水...</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 游戏3 -->
+          <div class="carousel-slide" data-index="2">
+            <div class="game-card-carousel">
+              <a href="#" class="game-cover-link" onclick="openGameModal(2); return false;">
+                <img src="https://via.placeholder.com/400x280/e74c3c/fff?text=夜行录" class="game-cover-carousel" alt="夜行录">
+                <div class="game-cover-overlay">
+                  <span class="play-icon">▶</span>
+                </div>
+              </a>
+              <div class="game-info-carousel">
+                <div class="game-platform">
+                  <span class="platform-tag">PC</span>
+                  <span class="platform-tag">Steam</span>
+                </div>
+                <h3 class="game-title">夜行录</h3>
+                <p class="game-status">策划中 | 预计2027年</p>
+                <p class="game-desc-short">都市怪谈题材视觉小说，揭开深夜都市传说...</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 游戏4 -->
+          <div class="carousel-slide" data-index="3">
+            <div class="game-card-carousel">
+              <a href="#" class="game-cover-link" onclick="openGameModal(3); return false;">
+                <img src="https://via.placeholder.com/400x280/8e44ad/fff?text=星降る夜" class="game-cover-carousel" alt="星降る夜">
+                <div class="game-cover-overlay">
+                  <span class="play-icon">▶</span>
+                </div>
+              </a>
+              <div class="game-info-carousel">
+                <div class="game-platform">
+                  <span class="platform-tag">NS</span>
+                  <span class="platform-tag">移动端</span>
+                </div>
+                <h3 class="game-title">星降る夜に</h3>
+                <p class="game-status">已完成 | 试玩版发布</p>
+                <p class="game-desc-short">短篇恋爱AVG，流星下的约定与回忆...</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 游戏5 -->
+          <div class="carousel-slide" data-index="4">
+            <div class="game-card-carousel">
+              <a href="#" class="game-cover-link" onclick="openGameModal(4); return false;">
+                <img src="https://via.placeholder.com/400x280/f39c12/fff?text=迷宫茶会" class="game-cover-carousel" alt="迷宫茶会">
+                <div class="game-cover-overlay">
+                  <span class="play-icon">▶</span>
+                </div>
+              </a>
+              <div class="game-info-carousel">
+                <div class="game-platform">
+                  <span class="platform-tag">桌游</span>
+                  <span class="platform-tag">网页</span>
+                </div>
+                <h3 class="game-title">迷宫茶会</h3>
+                <p class="game-status">已上线 | 多人联机</p>
+                <p class="game-desc-short">Roguelike卡牌游戏，在迷宫中举办魔女茶会...</p>
+              </div>
+            </div>
           </div>
         </div>
         
-        <div class="game-card">
-          <img src="https://via.placeholder.com/400x240/27ae60/fff?text=迷你游戏" class="game-cover" alt="封面">
-          <div class="game-info">
-            <div class="game-platform">
-              <span class="platform-tag">网页</span>
-              <span class="platform-tag">移动端</span>
-            </div>
-            <h3 class="game-title">魔女工坊</h3>
-            <p class="game-status">已上线 | 免费游玩</p>
-          </div>
+        <!-- 导航箭头 -->
+        <button class="carousel-arrow prev" onclick="goToSlide(currentSlide - 1)">‹</button>
+        <button class="carousel-arrow next" onclick="goToSlide(currentSlide + 1)">›</button>
+        
+        <!-- 圆点指示器 -->
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 游戏详情弹窗 ========== -->
+  <div class="game-modal" id="gameModal">
+    <div class="game-modal-content">
+      <div class="game-modal-header">
+        <img src="" class="game-modal-cover" id="modalCover" alt="">
+        <button class="game-modal-close" onclick="closeGameModal()">×</button>
+      </div>
+      <div class="game-modal-body">
+        <h3 class="game-modal-title" id="modalTitle"></h3>
+        <div class="game-modal-meta" id="modalMeta"></div>
+        <p class="game-modal-desc" id="modalDesc"></p>
+        <div class="game-modal-actions">
+          <a href="#" class="game-modal-btn primary" id="modalPlayBtn">
+            <span>▶</span> 开始游戏
+          </a>
+          <a href="#" class="game-modal-btn secondary" id="modalDetailBtn">
+            查看详情
+          </a>
         </div>
       </div>
     </div>
@@ -615,6 +1007,7 @@
   </div>
 
   <script>
+    // ========== 页面切换 ==========
     function goToPage(pageId) {
       document.querySelectorAll('.page').forEach(p => {
         p.classList.remove('active');
@@ -634,8 +1027,121 @@
         goToPage('title');
       }
     });
-  </script>
 
-</body>
-</html>
+    // ========== 游戏轮播 ==========
+    const gamesData = [
+      {
+        title: 'Thorned Alice',
+        cover: 'https://via.placeholder.com/600x300/2c3e50/fff?text=Thorned+Alice',
+        platforms: ['NS', 'PS4', 'Steam'],
+        status: '开发中 | 预计2026.12发售',
+        desc: '魔女爱丽丝的冒险物语。在现代都市的暗影中，古老的魔女血脉觉醒。玩家将扮演爱丽丝，探索隐藏在平凡世界之下的"里世界"，解开百年前的魔法战争之谜，并决定两个世界的命运。游戏采用多分支叙事，包含6个主要结局。',
+        playUrl: '#game-thorned-alice',
+        detailUrl: '#detail-thorned-alice'
+      },
+      {
+        title: '魔女工坊',
+        cover: 'https://via.placeholder.com/600x300/27ae60/fff?text=魔女工坊',
+        platforms: ['网页', '移动端'],
+        status: '已上线 | 免费游玩',
+        desc: '轻松治愈的魔女经营模拟游戏。继承祖母留下的魔法工坊，学习调配各种神奇的药水，满足来自不同世界的客人需求。收集稀有材料，解锁配方，装饰你的专属工坊。每日登录领取特殊奖励！',
+        playUrl: '#game-witch-workshop',
+        detailUrl: '#detail-witch-workshop'
+      },
+      {
+        title: '夜行录',
+        cover: 'https://via.placeholder.com/600x300/e74c3c/fff?text=夜行录',
+        platforms: ['PC', 'Steam'],
+        status: '策划中 | 预计2027年',
+        desc: '都市怪谈题材视觉小说。深夜的末班车、空无一人的医院、会说话的镜子...城市角落里流传着无数诡异传说。你是一名专门调查超自然事件的自由记者，每个选择都将导向不同的真相——或者深渊。',
+        playUrl: '#game-yakouroku',
+        detailUrl: '#detail-yakouroku'
+      },
+      {
+        title: '星降る夜に',
+        cover: 'https://via.placeholder.com/600x300/8e44ad/fff?text=星降る夜に',
+        platforms: ['NS', '移动端'],
+        status: '已完成 | 试玩版发布',
+        desc: '短篇恋爱AVG。童年时与神秘少年在流星下许下的约定，十年后的重逢却带来了意想不到的转折。温柔的青梅竹马、冷淡的转学生、神秘的占星师——在流星雨的夜晚，你的心意将飘向何方？',
+        playUrl: '#game-hoshifuru',
+        detailUrl: '#detail-hoshifuru'
+      },
+      {
+        title: '迷宫茶会',
+        cover: 'https://via.placeholder.com/600x300/f39c12/fff?text=迷宫茶会',
+        platforms: ['桌游', '网页'],
+        status: '已上线 | 多人联机',
+        desc: 'Roguelike卡牌游戏。在随机生成的迷宫中收集食材，举办最盛大的魔女茶会！支持1-4人联机，每位魔女都有独特的卡组构建方向。与好友合作击败迷宫守护者，或者...偷偷给他们使绊子？',
+        playUrl: '#game-teaparty',
+        detailUrl: '#detail-teaparty'
+      }
+    ];
 
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+
+    // 初始化圆点
+    function initDots() {
+      const dotsContainer = document.getElementById('carouselDots');
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goToSlide(i);
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    // 更新轮播状态
+    function updateCarousel() {
+      // 计算位移：让当前slide居中
+      const slideWidth = slides[0].offsetWidth;
+      const containerWidth = document.getElementById('gamesCarousel').offsetWidth;
+      const offset = (containerWidth - slideWidth) / 2 - currentSlide * slideWidth;
+      
+      track.style.transform = `translateX(${offset}px)`;
+      
+      // 更新active状态
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+      });
+      
+      // 更新圆点
+      document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+    }
+
+    // 跳转到指定slide
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    // 触摸滑动支持
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let startTranslateX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      currentX = startX;
+      isDragging = true;
+      track.classList.add('dragging');
+      startTranslateX = getCurrentTranslateX();
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const diff = currentX - startX;
+      track.style.transform = `translateX(${startTranslateX + diff}px)`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+      
