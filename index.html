@@ -1141,4 +1141,238 @@
         title: '未命名项目',
         cover: 'images/360截图20260729214157911.jpg',
         platforms: ['PC', 'NS'],
-        status: '
+        status: '概念阶段',
+        desc: '神秘新作，更多情报即将公开。请持续关注我们的官方账号获取最新动态。',
+        playUrl: '#game-unannounced-1',
+        detailUrl: '#detail-unannounced-1'
+      },
+      {
+        title: '秘密项目',
+        cover: 'images/360截图20260729214303094.jpg',
+        platforms: ['移动端'],
+        status: '筹备中',
+        desc: '全新的移动端体验，更多情报即将公开。请持续关注我们的官方账号获取最新动态。',
+        playUrl: '#game-unannounced-2',
+        detailUrl: '#detail-unannounced-2'
+      }
+    ];
+
+    let currentSlide = 0;
+    let track, slides, totalSlides;
+
+    // 初始化轮播（在游戏页面激活时调用）
+    function initCarousel() {
+      track = document.getElementById('carouselTrack');
+      slides = document.querySelectorAll('.carousel-slide');
+      totalSlides = slides.length;
+      
+      if (totalSlides === 0) return;
+      
+      initDots();
+      updateCarousel();
+      setupTouchEvents();
+    }
+
+    // 初始化圆点
+    function initDots() {
+      const dotsContainer = document.getElementById('carouselDots');
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = (e) => {
+          e.stopPropagation();
+          goToSlide(i);
+        };
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    // 更新轮播状态
+    function updateCarousel() {
+      if (!slides || slides.length === 0) return;
+      
+      const slideWidth = slides[0].offsetWidth;
+      const container = document.getElementById('gamesCarousel');
+      const containerWidth = container ? container.offsetWidth : window.innerWidth;
+      const offset = (containerWidth - slideWidth) / 2 - currentSlide * slideWidth;
+      
+      track.style.transform = `translateX(${offset}px)`;
+      
+      // 更新active状态
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+      });
+      
+      // 更新圆点
+      document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+    }
+
+    // 跳转到指定slide
+    function goToSlide(index) {
+      if (!totalSlides) return;
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    // 触摸滑动支持
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let startTranslateX = 0;
+
+    function setupTouchEvents() {
+      if (!track) return;
+      
+      // 移除旧事件监听（防止重复）
+      const newTrack = track.cloneNode(true);
+      track.parentNode.replaceChild(newTrack, track);
+      track = newTrack;
+      
+      // 重新绑定事件
+      track.addEventListener('touchstart', handleTouchStart, { passive: true });
+      track.addEventListener('touchmove', handleTouchMove, { passive: true });
+      track.addEventListener('touchend', handleTouchEnd);
+      
+      // 鼠标事件
+      track.addEventListener('mousedown', handleMouseDown);
+    }
+
+    function handleTouchStart(e) {
+      startX = e.touches[0].clientX;
+      currentX = startX;
+      isDragging = true;
+      track.classList.add('dragging');
+      startTranslateX = getCurrentTranslateX();
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const diff = currentX - startX;
+      track.style.transform = `translateX(${startTranslateX + diff}px)`;
+    }
+
+    function handleTouchEnd() {
+      if (!isDragging) return;
+      finishDrag();
+    }
+
+    function handleMouseDown(e) {
+      startX = e.clientX;
+      currentX = startX;
+      isDragging = true;
+      track.classList.add('dragging');
+      startTranslateX = getCurrentTranslateX();
+      e.preventDefault();
+    }
+
+    function handleMouseMove(e) {
+      if (!isDragging) return;
+      currentX = e.clientX;
+      const diff = currentX - startX;
+      track.style.transform = `translateX(${startTranslateX + diff}px)`;
+    }
+
+    function handleMouseUp() {
+      if (!isDragging) return;
+      finishDrag();
+    }
+
+    function finishDrag() {
+      isDragging = false;
+      track.classList.remove('dragging');
+      
+      const diff = currentX - startX;
+      const threshold = 50;
+      
+      if (Math.abs(diff) > threshold) {
+        if (diff > 0 && currentSlide > 0) {
+          goToSlide(currentSlide - 1);
+        } else if (diff < 0 && currentSlide < totalSlides - 1) {
+          goToSlide(currentSlide + 1);
+        } else {
+          updateCarousel();
+        }
+      } else {
+        updateCarousel();
+      }
+    }
+
+    // 全局鼠标事件
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    function getCurrentTranslateX() {
+      if (!track) return 0;
+      const style = window.getComputedStyle(track);
+      const matrix = new DOMMatrix(style.transform);
+      return matrix.m41;
+    }
+
+    // 窗口大小改变时重新计算
+    window.addEventListener('resize', () => {
+      if (document.getElementById('games').classList.contains('active')) {
+        updateCarousel();
+      }
+    });
+
+    // ========== 游戏详情弹窗 ==========
+    function openGameModal(index) {
+      const game = gamesData[index];
+      if (!game) return;
+      
+      document.getElementById('modalCover').src = game.cover;
+      document.getElementById('modalTitle').textContent = game.title;
+      
+      const metaHtml = game.platforms.map(p => `<span class="platform-tag">${p}</span>`).join('') + 
+                      `<span style="color: #999; margin-left: 8px;">${game.status}</span>`;
+      document.getElementById('modalMeta').innerHTML = metaHtml;
+      
+      document.getElementById('modalDesc').textContent = game.desc;
+      document.getElementById('modalPlayBtn').href = game.playUrl;
+      document.getElementById('modalDetailBtn').href = game.detailUrl;
+      
+      document.getElementById('gameModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGameModal() {
+      document.getElementById('gameModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 点击弹窗背景关闭
+    document.getElementById('gameModal').addEventListener('click', (e) => {
+      if (e.target.id === 'gameModal') {
+        closeGameModal();
+      }
+    });
+
+    // ========== 初始化 ==========
+    // 页面加载时初始化轮播
+    document.addEventListener('DOMContentLoaded', () => {
+      initCarousel();
+    });
+    
+    // 当游戏页面被激活时重新初始化
+    const gamesPage = document.getElementById('games');
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          if (gamesPage.classList.contains('active')) {
+            setTimeout(initCarousel, 100);
+          }
+        }
+      });
+    });
+    observer.observe(gamesPage, { attributes: true });
+  </script>
+
+</body>
+</html>
