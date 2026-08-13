@@ -196,17 +196,17 @@
       width: 100%;
       overflow: hidden;
       padding: 20px 0;
+      touch-action: pan-y;
     }
 
     .carousel-track {
       display: flex;
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: grab;
+      will-change: transform;
     }
 
     .carousel-track.dragging {
       transition: none;
-      cursor: grabbing;
     }
 
     .carousel-slide {
@@ -216,6 +216,7 @@
       opacity: 0.5;
       transform: scale(0.9);
       transition: all 0.4s ease;
+      user-select: none;
     }
 
     .carousel-slide.active {
@@ -239,6 +240,7 @@
       display: block;
       position: relative;
       overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .game-cover-carousel {
@@ -247,6 +249,7 @@
       object-fit: cover;
       display: block;
       transition: transform 0.3s ease;
+      pointer-events: none;
     }
 
     .game-card-carousel:hover .game-cover-carousel {
@@ -261,6 +264,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s;
+      pointer-events: none;
     }
 
     .game-cover-link:hover .game-cover-overlay {
@@ -329,22 +333,24 @@
       justify-content: center;
       gap: 12px;
       margin-top: 28px;
+      padding-bottom: 20px;
     }
 
     .carousel-dot {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: #ddd;
       border: none;
       cursor: pointer;
       transition: all 0.3s;
       padding: 0;
+      flex-shrink: 0;
     }
 
     .carousel-dot.active {
       background: #e74c3c;
-      transform: scale(1.3);
+      transform: scale(1.2);
     }
 
     .carousel-dot:hover {
@@ -354,7 +360,7 @@
     /* 导航箭头 */
     .carousel-arrow {
       position: absolute;
-      top: 50%;
+      top: 40%;
       transform: translateY(-50%);
       width: 44px;
       height: 44px;
@@ -365,7 +371,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
       color: #666;
       box-shadow: 0 2px 12px rgba(0,0,0,0.15);
       transition: all 0.3s;
@@ -392,11 +398,12 @@
       }
       
       .carousel-slide {
-        flex: 0 0 90%;
+        flex: 0 0 88%;
+        padding: 0 6px;
       }
       
       .game-cover-carousel {
-        height: 220px;
+        height: 200px;
       }
     }
 
@@ -809,14 +816,14 @@
       <div class="games-carousel-container" id="gamesCarousel">
         <div class="carousel-track" id="carouselTrack">
           <!-- 游戏1 -->
-          <div class="carousel-slide" data-index="0">
+          <div class="carousel-slide active" data-index="0">
             <div class="game-card-carousel">
-              <a href="#" class="game-cover-link" onclick="openGameModal(0); return false;">
+              <div class="game-cover-link" onclick="openGameModal(0)">
                 <img src="images/360截图20260729203218948.jpg" class="game-cover-carousel" alt="Thorned Alice">
                 <div class="game-cover-overlay">
                   <span class="play-icon">▶</span>
                 </div>
-              </a>
+              </div>
               <div class="game-info-carousel">
                 <div class="game-platform">
                   <span class="platform-tag">NS</span>
@@ -833,12 +840,12 @@
           <!-- 游戏2 -->
           <div class="carousel-slide" data-index="1">
             <div class="game-card-carousel">
-              <a href="#" class="game-cover-link" onclick="openGameModal(1); return false;">
+              <div class="game-cover-link" onclick="openGameModal(1)">
                 <img src="images/360截图20260729203307371.jpg" class="game-cover-carousel" alt="魔女工坊">
                 <div class="game-cover-overlay">
                   <span class="play-icon">▶</span>
                 </div>
-              </a>
+              </div>
               <div class="game-info-carousel">
                 <div class="game-platform">
                   <span class="platform-tag">网页</span>
@@ -854,12 +861,12 @@
           <!-- 游戏3 -->
           <div class="carousel-slide" data-index="2">
             <div class="game-card-carousel">
-              <a href="#" class="game-cover-link" onclick="openGameModal(2); return false;">
+              <div class="game-cover-link" onclick="openGameModal(2)">
                 <img src="images/360截图20260729204313488.jpg" class="game-cover-carousel" alt="夜行录">
                 <div class="game-cover-overlay">
                   <span class="play-icon">▶</span>
                 </div>
-              </a>
+              </div>
               <div class="game-info-carousel">
                 <div class="game-platform">
                   <span class="platform-tag">PC</span>
@@ -875,12 +882,12 @@
           <!-- 游戏4 -->
           <div class="carousel-slide" data-index="3">
             <div class="game-card-carousel">
-              <a href="#" class="game-cover-link" onclick="openGameModal(3); return false;">
+              <div class="game-cover-link" onclick="openGameModal(3)">
                 <img src="images/360截图20260729204459913.jpg" class="game-cover-carousel" alt="星降る夜">
                 <div class="game-cover-overlay">
                   <span class="play-icon">▶</span>
                 </div>
-              </a>
+              </div>
               <div class="game-info-carousel">
                 <div class="game-platform">
                   <span class="platform-tag">NS</span>
@@ -896,12 +903,12 @@
           <!-- 游戏5 -->
           <div class="carousel-slide" data-index="4">
             <div class="game-card-carousel">
-              <a href="#" class="game-cover-link" onclick="openGameModal(4); return false;">
+              <div class="game-cover-link" onclick="openGameModal(4)">
                 <img src="images/360截图20260729214040263.jpg" class="game-cover-carousel" alt="迷宫茶会">
                 <div class="game-cover-overlay">
                   <span class="play-icon">▶</span>
                 </div>
-              </a>
+              </div>
               <div class="game-info-carousel">
                 <div class="game-platform">
                   <span class="platform-tag">桌游</span>
@@ -917,12 +924,12 @@
           <!-- 游戏6 -->
           <div class="carousel-slide" data-index="5">
             <div class="game-card-carousel">
-              <a href="#" class="game-cover-link" onclick="openGameModal(5); return false;">
+              <div class="game-cover-link" onclick="openGameModal(5)">
                 <img src="images/360截图20260729214157911.jpg" class="game-cover-carousel" alt="未命名游戏6">
                 <div class="game-cover-overlay">
                   <span class="play-icon">▶</span>
                 </div>
-              </a>
+              </div>
               <div class="game-info-carousel">
                 <div class="game-platform">
                   <span class="platform-tag">PC</span>
@@ -938,12 +945,12 @@
           <!-- 游戏7 -->
           <div class="carousel-slide" data-index="6">
             <div class="game-card-carousel">
-              <a href="#" class="game-cover-link" onclick="openGameModal(6); return false;">
+              <div class="game-cover-link" onclick="openGameModal(6)">
                 <img src="images/360截图20260729214303094.jpg" class="game-cover-carousel" alt="未命名游戏7">
                 <div class="game-cover-overlay">
                   <span class="play-icon">▶</span>
                 </div>
-              </a>
+              </div>
               <div class="game-info-carousel">
                 <div class="game-platform">
                   <span class="platform-tag">移动端</span>
@@ -957,8 +964,8 @@
         </div>
         
         <!-- 导航箭头 -->
-        <button class="carousel-arrow prev" onclick="goToSlide(currentSlide - 1)">‹</button>
-        <button class="carousel-arrow next" onclick="goToSlide(currentSlide + 1)">›</button>
+        <button class="carousel-arrow prev" onclick="event.stopPropagation(); goToSlide(currentSlide - 1)">‹</button>
+        <button class="carousel-arrow next" onclick="event.stopPropagation(); goToSlide(currentSlide + 1)">›</button>
         
         <!-- 圆点指示器 -->
         <div class="carousel-dots" id="carouselDots"></div>
@@ -1059,19 +1066,16 @@
       });
       
       // 找到目标页面
-      let target;
-      if (pageId === 'title-page') {
-        target = document.getElementById('title-page');
-      } else {
-        target = document.getElementById(pageId);
-      }
+      const target = document.getElementById(pageId);
       
       if (target) {
-        // 小延迟确保过渡效果
-        setTimeout(() => {
-          target.classList.add('active');
-          target.scrollTop = 0;
-        }, 50);
+        target.classList.add('active');
+        target.scrollTop = 0;
+        
+        // 如果切换到游戏页面，初始化轮播
+        if (pageId === 'games') {
+          setTimeout(initCarousel, 50);
+        }
       } else {
         console.error('Page not found:', pageId);
       }
@@ -1139,240 +1143,4 @@
       },
       {
         title: '未命名项目',
-        cover: 'images/360截图20260729214157911.jpg',
-        platforms: ['PC', 'NS'],
-        status: '概念阶段',
-        desc: '神秘新作，更多情报即将公开。请持续关注我们的官方账号获取最新动态。',
-        playUrl: '#game-unannounced-1',
-        detailUrl: '#detail-unannounced-1'
-      },
-      {
-        title: '秘密项目',
-        cover: 'images/360截图20260729214303094.jpg',
-        platforms: ['移动端'],
-        status: '筹备中',
-        desc: '全新的移动端体验，更多情报即将公开。请持续关注我们的官方账号获取最新动态。',
-        playUrl: '#game-unannounced-2',
-        detailUrl: '#detail-unannounced-2'
-      }
-    ];
-
-    let currentSlide = 0;
-    let track, slides, totalSlides;
-
-    // 初始化轮播（在游戏页面激活时调用）
-    function initCarousel() {
-      track = document.getElementById('carouselTrack');
-      slides = document.querySelectorAll('.carousel-slide');
-      totalSlides = slides.length;
-      
-      if (totalSlides === 0) return;
-      
-      initDots();
-      updateCarousel();
-      setupTouchEvents();
-    }
-
-    // 初始化圆点
-    function initDots() {
-      const dotsContainer = document.getElementById('carouselDots');
-      if (!dotsContainer) return;
-      dotsContainer.innerHTML = '';
-      for (let i = 0; i < totalSlides; i++) {
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-        dot.onclick = (e) => {
-          e.stopPropagation();
-          goToSlide(i);
-        };
-        dotsContainer.appendChild(dot);
-      }
-    }
-
-    // 更新轮播状态
-    function updateCarousel() {
-      if (!slides || slides.length === 0) return;
-      
-      const slideWidth = slides[0].offsetWidth;
-      const container = document.getElementById('gamesCarousel');
-      const containerWidth = container ? container.offsetWidth : window.innerWidth;
-      const offset = (containerWidth - slideWidth) / 2 - currentSlide * slideWidth;
-      
-      track.style.transform = `translateX(${offset}px)`;
-      
-      // 更新active状态
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === currentSlide);
-      });
-      
-      // 更新圆点
-      document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentSlide);
-      });
-    }
-
-    // 跳转到指定slide
-    function goToSlide(index) {
-      if (!totalSlides) return;
-      if (index < 0) index = 0;
-      if (index >= totalSlides) index = totalSlides - 1;
-      currentSlide = index;
-      updateCarousel();
-    }
-
-    // 触摸滑动支持
-    let startX = 0;
-    let currentX = 0;
-    let isDragging = false;
-    let startTranslateX = 0;
-
-    function setupTouchEvents() {
-      if (!track) return;
-      
-      // 移除旧事件监听（防止重复）
-      const newTrack = track.cloneNode(true);
-      track.parentNode.replaceChild(newTrack, track);
-      track = newTrack;
-      
-      // 重新绑定事件
-      track.addEventListener('touchstart', handleTouchStart, { passive: true });
-      track.addEventListener('touchmove', handleTouchMove, { passive: true });
-      track.addEventListener('touchend', handleTouchEnd);
-      
-      // 鼠标事件
-      track.addEventListener('mousedown', handleMouseDown);
-    }
-
-    function handleTouchStart(e) {
-      startX = e.touches[0].clientX;
-      currentX = startX;
-      isDragging = true;
-      track.classList.add('dragging');
-      startTranslateX = getCurrentTranslateX();
-    }
-
-    function handleTouchMove(e) {
-      if (!isDragging) return;
-      currentX = e.touches[0].clientX;
-      const diff = currentX - startX;
-      track.style.transform = `translateX(${startTranslateX + diff}px)`;
-    }
-
-    function handleTouchEnd() {
-      if (!isDragging) return;
-      finishDrag();
-    }
-
-    function handleMouseDown(e) {
-      startX = e.clientX;
-      currentX = startX;
-      isDragging = true;
-      track.classList.add('dragging');
-      startTranslateX = getCurrentTranslateX();
-      e.preventDefault();
-    }
-
-    function handleMouseMove(e) {
-      if (!isDragging) return;
-      currentX = e.clientX;
-      const diff = currentX - startX;
-      track.style.transform = `translateX(${startTranslateX + diff}px)`;
-    }
-
-    function handleMouseUp() {
-      if (!isDragging) return;
-      finishDrag();
-    }
-
-    function finishDrag() {
-      isDragging = false;
-      track.classList.remove('dragging');
-      
-      const diff = currentX - startX;
-      const threshold = 50;
-      
-      if (Math.abs(diff) > threshold) {
-        if (diff > 0 && currentSlide > 0) {
-          goToSlide(currentSlide - 1);
-        } else if (diff < 0 && currentSlide < totalSlides - 1) {
-          goToSlide(currentSlide + 1);
-        } else {
-          updateCarousel();
-        }
-      } else {
-        updateCarousel();
-      }
-    }
-
-    // 全局鼠标事件
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    function getCurrentTranslateX() {
-      if (!track) return 0;
-      const style = window.getComputedStyle(track);
-      const matrix = new DOMMatrix(style.transform);
-      return matrix.m41;
-    }
-
-    // 窗口大小改变时重新计算
-    window.addEventListener('resize', () => {
-      if (document.getElementById('games').classList.contains('active')) {
-        updateCarousel();
-      }
-    });
-
-    // ========== 游戏详情弹窗 ==========
-    function openGameModal(index) {
-      const game = gamesData[index];
-      if (!game) return;
-      
-      document.getElementById('modalCover').src = game.cover;
-      document.getElementById('modalTitle').textContent = game.title;
-      
-      const metaHtml = game.platforms.map(p => `<span class="platform-tag">${p}</span>`).join('') + 
-                      `<span style="color: #999; margin-left: 8px;">${game.status}</span>`;
-      document.getElementById('modalMeta').innerHTML = metaHtml;
-      
-      document.getElementById('modalDesc').textContent = game.desc;
-      document.getElementById('modalPlayBtn').href = game.playUrl;
-      document.getElementById('modalDetailBtn').href = game.detailUrl;
-      
-      document.getElementById('gameModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeGameModal() {
-      document.getElementById('gameModal').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    // 点击弹窗背景关闭
-    document.getElementById('gameModal').addEventListener('click', (e) => {
-      if (e.target.id === 'gameModal') {
-        closeGameModal();
-      }
-    });
-
-    // ========== 初始化 ==========
-    // 页面加载时初始化轮播
-    document.addEventListener('DOMContentLoaded', () => {
-      initCarousel();
-    });
-    
-    // 当游戏页面被激活时重新初始化
-    const gamesPage = document.getElementById('games');
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          if (gamesPage.classList.contains('active')) {
-            setTimeout(initCarousel, 100);
-          }
-        }
-      });
-    });
-    observer.observe(gamesPage, { attributes: true });
-  </script>
-
-</body>
-</html>
+        cover: 'images/360截图20260729214157911.j
